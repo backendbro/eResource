@@ -1,0 +1,16 @@
+[
+    {
+
+		"name": "Publisher Account",
+		"email": "publisher@gmail.com",
+		"role": "publisher",
+		"password": "123456"
+	},
+	{
+
+		"name": "User Account",
+		"email": "user@gmail.com",
+		"role": "user",
+		"password": "123456"
+	}
+]
