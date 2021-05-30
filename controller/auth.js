@@ -13,6 +13,24 @@ exports.register = asyncHandler ( async ( req, res, next) => {
         name, email, password, role
     })
     
+    //grab token and send to email
+    const confirmEmailToken = user.generateEmailConfirmationToken()
+    await user.save({ validateBeforeSave:false})
+  // Create reset url
+    const confirmEmailURL = `${req.protocol}://${req.get(
+        'host',
+    )}/api/v1/auth/confirmemail?token=${confirmEmailToken}`;
+
+    const message = `You are receiving this email because you need to confirm your email address. Please make a GET request to: \n\n ${confirmEmailURL}`;
+    console.log(message)
+    
+
+    const sendResult = await sendEmail({
+        email: user.email,
+        subject: 'Email confirmation token',
+        message,
+    });
+
     //send response token
     responseToken(user, 201, res)
 
@@ -46,6 +64,50 @@ exports.login = asyncHandler ( async (req, res, next) => {
     responseToken(user, 200, res)
 })
 
+//@@desc GET Verify User's Email
+//@@route GET /api/v1/confirmemail/token
+//@@access PRIVATE
+exports.confirmEmail = asyncHandler ( async (req, res, next) => {
+    //grab token from email
+    const { token }= req.query
+    console.log(`query token: ${token}`)
+
+    if(!token){
+        return next( new ErrorResponse (`Invalid token`, 400))
+    }
+
+    
+    const confirmEmailToken = crypto
+    .createHash('sha256')
+    .update(token)
+    .digest('hex')
+    
+    console.log(`ConfirmEmail: ${confirmEmailToken}`)
+
+
+    //get user by token
+    const user = await User.findOne({
+        confirmEmailToken,
+       // confirmEmailExpire:{$gt: Date.now()},
+        isEmailConfirmed: false
+    })
+
+    if(!user){
+        return next( new ErrorResponse(`User not found with this token`, 400))
+    }
+
+    //update confirmed to true
+    user.confirmEmailToken = undefined
+    user.isEmailConfirmed = true
+    user.confirmEmailExpire = undefined
+
+    //save
+    user.save({validateBeforeSave:false})
+
+    //return token
+    responseToken(user, 200, res)  
+
+})
 
 //@desc    GET current User
 //@@route  GET /api/v1/auth/me
@@ -168,6 +230,9 @@ exports.forgotPassword = asyncHandler ( async ( req, res, next) => {
 exports.resetPassword = asyncHandler ( async ( req, res, next) => {
     //get reset token
     const resetPasswordToken = crypto.createHash('sha256').update(req.params.resettoken).digest('hex')
+   
+   console.log(`req token: ${req.params.resettoken}`)
+    console.log(resetPasswordToken)
 
     const user = await User.findOne({
         resetPasswordToken,
@@ -206,3 +271,4 @@ const responseToken = (user, statusCode, res) => {
     .cookie('token', token, options)
     .json({ success:true, token})
 }
+

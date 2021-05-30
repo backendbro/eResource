@@ -1,3 +1,9 @@
+//to make these email appear in our mailbox, we will have to use 
+// some form of paid mail services.
+// for now we will use the console and mailtrap to view our mails
+
+
+
 const nodemailer = require("nodemailer");
 
     const sendEmail = async (options) => {

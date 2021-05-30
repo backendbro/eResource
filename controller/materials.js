@@ -165,8 +165,12 @@ exports.downloadFile = asyncHandler ( async ( req, res, next) => {
     }   
     
     const url = `https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg`
-    //const url = `https://${req.get('host')}/api/v1/material/download/${req.params.filename}`
+    //const hostedUrl = `https://${req.get('host')}/api/v1/material/download/${req.params.filename}`
     
+    //use hostedUrl only when your app has been hosted. if not it will return an error
+    
+
+
     //CREATE CUSTOM FILENAME
     fileName = `file_${checkFile._id}${path.parse(url).ext}`
     

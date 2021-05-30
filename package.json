@@ -21,6 +21,7 @@
     "mongoose": "^5.12.10",
     "morgan": "^1.10.0",
     "node-mailer": "^0.1.1",
+    "randomatic": "^3.1.1",
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {},

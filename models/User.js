@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
+const randomize = require('randomatic');
 
 
 const UserSchema = new mongoose.Schema({
@@ -31,6 +32,18 @@ const UserSchema = new mongoose.Schema({
       },
       resetPasswordToken: String,
       resetPasswordExpire: Date,
+      confirmEmailExpire:Date,
+      confirmEmailToken: String,
+      isEmailConfirmed: {
+        type: Boolean,
+        default: false,
+      },
+      twoFactorCode: String,
+      twoFactorCodeExpire: Date,
+      twoFactorEnable: {
+        type: Boolean,
+        default: false,
+      },
       createdAt:{
           type: Date,
           default: Date.now
@@ -65,14 +78,36 @@ UserSchema.methods.getPasswordResetToken = async function (){
     //create token
     const token = crypto.randomBytes(20).toString('hex')
 
+
     //hash token and store in database
     this.resetPasswordToken = crypto
     .createHash('sha256')
     .update(token)
     .digest('hex')
 
+
     this.resetPasswordExpire = Date.now() + 10 * 60 * 1000
     return token
+}
+
+//generate email configuration
+UserSchema.methods.generateEmailConfirmationToken = function (next){
+    
+    //email configuration token
+    const token = crypto.randomBytes(20).toString('hex')
+    
+
+    this.confirmEmailToken = crypto
+    .createHash('sha256')
+    .update(token)
+    .digest('hex')
+
+    this.confirmEmailExpire = Date.now() + 10 * 60 * 1000
+    console.log(`Raw token: ${token}`)
+    console.log(`Encoded token: ${this.confirmEmailToken}`)
+    
+    return token
+    
 }
 
 module.exports = mongoose.model('User', UserSchema)

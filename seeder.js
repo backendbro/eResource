@@ -38,9 +38,9 @@ const importData = async () => {
 //Destroy Data
 const DestroyData = async () => {
     try{
-        await Shelf.deleteMany()
-        await Materials.deleteMany()
-        //await User.deleteMany()
+        //await Shelf.deleteMany()
+        //await Materials.deleteMany()
+        await User.deleteMany()
         
         console.log(`Data Destroyed..`.red.inverse)
     process.exit()
