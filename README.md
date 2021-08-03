@@ -45,11 +45,11 @@ between publishers and users. The tech stack include:
  * We handled authentication to the very last. I added some modern auth features like;
    recover password, email verifictaion and update password 
 
-⋅*  We patched up some leaks that may occur in our database query mechanism by installing; mongoSantize
+*  We patched up some leaks that may occur in our database query mechanism by installing; mongoSantize
 
- * We limited the rate of api calls to 10mins. But can be increased to your own time frame.
+* We limited the rate of api calls to 10mins. But can be increased to your own time frame.
 
- * If you are hosting this api make sure to check the < /eResource/controller/material.js > file, inorder to 
+* If you are hosting this api make sure to check the < /eResource/controller/material.js > file, inorder to 
      make some minor changes to the file download/upload functions.
 
 
