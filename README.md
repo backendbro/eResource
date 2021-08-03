@@ -25,10 +25,11 @@ between publishers and users. The tech stack include:
     
     *  /api/user => performs CRUD operations on the registered users
     
- #Usage
-    To use this API for your project(s), perform the following steps:
+ # Usage
+    
+   * To use this API for your project(s), perform the following steps:
 
-    * clone this repo to your preferred IDE.
+   * clone this repo to your preferred IDE.
 
     * run yarn install or npm install to install the dependencies
 
