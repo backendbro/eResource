@@ -9,23 +9,24 @@ between publishers and users. The tech stack include:
     MongoDB/Mongoose
 
 # Install Dependencies
- npm install
-Routes
+
+    npm install or npm i
+
 
 # The API has the following main endpoints:
 
-   1. /api/ => index route
+    1.  /api/ => index route
 
-   2. /api/auth => handles all authentication
+    2.  /api/auth => handles all authentication
 
-   3. /api/shelf => performs CRUD operations on the shelf created 
+    3. /api/shelf => performs CRUD operations on the shelf created 
 
-   4. /api/material => performs CRUD operations on the materials created
+    4.  /api/material => performs CRUD operations on the materials created
     
-   5.  /api/user => performs CRUD operations on the registered users
+    5.  /api/user => performs CRUD operations on the registered users
     
-  #Usage
- To use this API for your project(s), perform the following steps:
+ #Usage
+    To use this API for your project(s), perform the following steps:
 
     clone this repo to your preferred IDE.
 
@@ -36,9 +37,18 @@ Routes
 
     run yarn dev or npm run dev 
 
-    open up postman or a browser and visit http://localhost:PORT to hit the endpoints. 
+    open postman or a browser and visit http://localhost:PORT to hit the endpoints. 
 
+#GENERAL NOTE.
+⋅⋅* We handled authentication to the very last. I added some modern auth features like;
+    recover password, email verifictaion and update password 
 
+⋅⋅* We patched up some leaks that may occur in our database query mechanism by installing; mongoSantize
+
+⋅⋅* We limited the rate of api calls to 10mins. But can be increased to your own time frame.
+
+⋅⋅* If you are hosting this api make sure to check the < /eResource/controller/material.js > file, inorder to 
+    make some minor changes to the file download/upload functions.
 
 
 
