@@ -39,8 +39,9 @@ between publishers and users. The tech stack include:
 
     open postman or a browser and visit http://localhost:PORT to hit the endpoints. 
 
-#GENERAL NOTE.
-⋅⋅* We handled authentication to the very last. I added some modern auth features like;
+#General notes.
+
+* We handled authentication to the very last. I added some modern auth features like;
     recover password, email verifictaion and update password 
 
 ⋅⋅* We patched up some leaks that may occur in our database query mechanism by installing; mongoSantize
