@@ -54,6 +54,7 @@ const ShelfSchema = new mongoose.Schema({
   ShelfSchema.pre('remove', async function (next) {
     console.log(`Materials associated with Shelf with ID: ${this._id} is being deleted`)
     await this.model('Material').deleteMany({ shelf: this._id})
+    next()
   })
 
 module.exports = mongoose.model('Shelf', ShelfSchema)

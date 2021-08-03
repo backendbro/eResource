@@ -26,7 +26,7 @@ mongoose.connect(process.env.MongoURL, {
 //Import into DB
 const importData = async () => {
     try{
-       //await Shelf.create(shelf)
+       await Shelf.create(shelf)
         console.log(`Data Imported...`.green.inverse)
         process.exit()
     }catch(err){
@@ -38,8 +38,8 @@ const importData = async () => {
 //Destroy Data
 const DestroyData = async () => {
     try{
-        //await Shelf.deleteMany()
-        //await Materials.deleteMany()
+        await Shelf.deleteMany()
+        await Materials.deleteMany()
         await User.deleteMany()
         
         console.log(`Data Destroyed..`.red.inverse)
