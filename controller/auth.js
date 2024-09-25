@@ -20,7 +20,7 @@ exports.register = asyncHandler ( async ( req, res, next) => {
   // Create reset url
     const confirmEmailURL = `${req.protocol}://${req.get(
         'host',
-    )}/api/v1/auth/confirmemail?token=${confirmEmailToken}`;
+    )}/api/v1/auth/confirm-email?token=${confirmEmailToken}`;
 
     const message = `You are receiving this email because you need to confirm your email address. Please make a GET request to: \n\n ${confirmEmailURL}`;
  
@@ -73,6 +73,7 @@ exports.login = asyncHandler ( async (req, res, next) => {
 //@@access PRIVATE
 exports.confirmEmail = asyncHandler ( async (req, res, next) => {
     //grab token from email
+    console.log(req.query)
     const { token }= req.query
     console.log(`query token: ${token}`)
 

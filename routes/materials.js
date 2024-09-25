@@ -24,6 +24,11 @@ router.
         .put(protect, authorize('publisher', 'admin'),updateMaterial)
         .delete(protect, authorize('publisher', 'admin'),deleteMaterial)
 
+
+router.
+    route('/:id/fileupload')
+        .put(protect, authorize('publisher', 'admin'),fileUpload)
+
 router.
     route('/:materialId/:filename')
     .get(protect, getFile)

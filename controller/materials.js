@@ -7,6 +7,11 @@ const fs = require('fs')
 const os = require('os')
 const https = require('https')
 
+
+    
+const { upload } = require('uploadthing/server'); 
+
+
 //@desc     Get materials
 //@@route   GET /api/v1/materials
 //@@route  GET /api/v1/:shelfId/material
@@ -114,7 +119,11 @@ exports.deleteMaterial = asyncHandler ( async ( req, res, next) => {
 //@@route   Put /api/v1/material/:id/fileupload
 //@@access PRIVATE
 exports.fileUpload = asyncHandler ( async  ( req, res, next) => {
+
+
     let material = await Material.findById(req.params.id)
+
+
     if(!material){
         return next( new ErrorResponse(`No material found with this ID: ${req.params.id}`))
     }
@@ -130,20 +139,26 @@ exports.fileUpload = asyncHandler ( async  ( req, res, next) => {
         return next( new ErrorResponse(`Please upload a file`, 404))
     }
 
-    const file = req.files.file
+
+    const file = req.files.file 
 
     //check for file size
     if(file.size > process.env.MAX_FILE_UPLOAD){
         return next ( new ErrorResponse(`File too large. File must not be bigger than ${process.env.MAX_FILE_UPLOAD}`, 404))
     }
 
+  
     file.name = `file_${material._id}${path.parse(file.name).ext}`
-    console.log(file.name)
+
+
+    const os_user = os.userInfo().username;
+    const FILE_UPLOAD_PATH = `C:\\Users\\${os_user}\\Downloads`;
+
 
     //upload file 
-    file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async err => {
+    file.mv(`${FILE_UPLOAD_PATH}/${file.name}`, async err => {
         if(err){
-            return next( new ErrorResponse(`Something went wrong`, 400))
+            return next(new ErrorResponse(`Something went wrong`, 400))
         }
 
         await Material.findByIdAndUpdate(req.params.id, {file: file.name})

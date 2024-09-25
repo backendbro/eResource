@@ -19,12 +19,12 @@ const { protect } = require('../middlewares/auth')
 
 router.post('/register', register)
 router.post('/login', login)
-router.get('/confirmemail', protect, confirmEmail);
+router.put('/confirm-email', protect, confirmEmail);
 router.get('/getuser', protect, getUser)
 router.get('/logout', logoutUser)
-router.put('/updatedetails', protect, updateUserDetails)
-router.put('/updatepassword', protect, updatePassword)
-router.put('/resetpassword/:resettoken', resetPassword)
-router.post('/forgotpassword', forgotPassword)
+router.put('/update-details', protect, updateUserDetails)
+router.put('/update-password', protect, updatePassword)
+router.put('/reset-password/:resettoken', resetPassword)
+router.post('/forgot-password', forgotPassword)
 
 module.exports = router
