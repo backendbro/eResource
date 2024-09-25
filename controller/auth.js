@@ -8,6 +8,7 @@ const sendEmail = require('../ultis/sendEmail')
 //@@route  POST /api/v1/auth/register
 //@@access PUBLIC
 exports.register = asyncHandler ( async ( req, res, next) => {
+    
     const { name, email, password, role } = req.body
     const user = await User.create({
         name, email, password, role
@@ -22,14 +23,17 @@ exports.register = asyncHandler ( async ( req, res, next) => {
     )}/api/v1/auth/confirmemail?token=${confirmEmailToken}`;
 
     const message = `You are receiving this email because you need to confirm your email address. Please make a GET request to: \n\n ${confirmEmailURL}`;
-    console.log(message)
-    
-
-    const sendResult = await sendEmail({
-        email: user.email,
-        subject: 'Email confirmation token',
-        message,
-    });
+ 
+    try {
+        const sendResult = await sendEmail({
+            email: user.email,
+            subject: 'Email confirmation token',
+            message,
+        });
+        
+    } catch (error) {
+        console.log(error)
+    }
 
     //send response token
     responseToken(user, 201, res)
@@ -37,7 +41,7 @@ exports.register = asyncHandler ( async ( req, res, next) => {
 })
 
 //@desc    LOGIN User
-//@@route  POST /api/v1/auth/login
+//@@route  POST /api/v1/auth/login 
 //@@access PUBLIC
 exports.login = asyncHandler ( async (req, res, next) => {
     const { email, password } = req.body

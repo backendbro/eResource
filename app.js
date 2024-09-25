@@ -1,5 +1,10 @@
-const express = require('express')
 const dotenv = require('dotenv')
+
+//DOT ENV 
+dotenv.config()
+
+
+const express = require('express')
 const colors = require('colors')
 const morgan = require('morgan')
 const errorHandler = require('./middlewares/error')
@@ -19,8 +24,6 @@ const app = express()
 app.use(express.json())
 
 
-//DOT ENV 
-dotenv.config({path: './config/config.env'})
 
 //connect to database
 connectDb()
