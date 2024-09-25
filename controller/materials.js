@@ -164,8 +164,8 @@ exports.downloadFile = asyncHandler ( async ( req, res, next) => {
         return next( new ErrorResponse(`File with ID: ${req.params.id} does not exist`, 401))
     }   
     
-    const url = `https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg`
-    //const hostedUrl = `https://${req.get('host')}/api/v1/material/download/${req.params.filename}`
+//    const url = `https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg`
+    const hostedUrl = `https://${req.get('host')}/api/v1/material/download/${req.params.filename}`
     
     //use hostedUrl only when your app has been hosted. if not it will return an error
     
